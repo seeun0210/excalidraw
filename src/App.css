@@ -1,0 +1,3 @@
+i .custom-styles .excalidraw {
+  --default-bg-color: #{$transparent} !important;
+}
