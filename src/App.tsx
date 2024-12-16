@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Excalidraw, MainMenu } from "@excalidraw/excalidraw";
 import "./App.css";
 import { ExcalidrawElement } from "@excalidraw/excalidraw/types/element/types";
+import { IconButton } from "@goorm-dev/vapor-core";
+import { HeartIcon } from "@goorm-dev/vapor-icons";
 
 const initDB = (): Promise<IDBDatabase> => {
   return new Promise((resolve, reject) => {
@@ -123,10 +125,7 @@ function App() {
   }, []);
 
   return (
-    <div
-      style={{ height: "100vh", backgroundColor: "transparent" }}
-      className="custom-styles"
-    >
+    <div style={{ height: "100vh" }} className="custom-styles">
       <div
         style={{
           position: "fixed",
@@ -137,11 +136,18 @@ function App() {
           height: 50,
         }}
       >
-        <button onClick={toggleVisibility}>
-          {isVisible
-            ? "그리기 보드 숨기기(최종버전 저장됨)"
-            : "그리기 보드 보이기(indexedDB에서 불러옴)"}
-        </button>
+        <IconButton
+          icon={HeartIcon}
+          onClick={toggleVisibility}
+          style={{ position: "absolute", right: 30, bottom: 30, zIndex: 99999 }}
+          color={isVisible ? "primary" : "secondary"}
+          size="lg"
+          ariaLabel={
+            isVisible
+              ? "그리기 보드 숨기기(최종버전 저장됨)"
+              : "그리기 보드 보이기(indexedDB에서 불러옴)"
+          }
+        />
       </div>
 
       {initialData && (
@@ -153,30 +159,35 @@ function App() {
           }}
         >
           <Excalidraw
-            initialData={initialData}
+            initialData={{
+              ...initialData,
+              appState: {
+                ...initialData.appState,
+                viewBackgroundColor: "transparent",
+              },
+            }}
             onChange={handleChange}
             UIOptions={{
+              tools: {
+                image: false,
+              },
               canvasActions: {
-                changeViewBackgroundColor: true,
+                changeViewBackgroundColor: false,
                 clearCanvas: true,
               },
             }}
+            langCode="ko-KR"
           >
             <MainMenu>
               <MainMenu.DefaultItems.LoadScene />
               <MainMenu.DefaultItems.SaveToActiveFile />
               <MainMenu.DefaultItems.Export />
               <MainMenu.DefaultItems.SaveAsImage />
-
               <MainMenu.DefaultItems.Help />
               <MainMenu.DefaultItems.ClearCanvas />
               <MainMenu.Separator />
-
               <MainMenu.DefaultItems.Socials />
-
               <MainMenu.Separator />
-
-              <MainMenu.DefaultItems.ChangeCanvasBackground />
             </MainMenu>
           </Excalidraw>
         </div>

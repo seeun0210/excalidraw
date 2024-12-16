@@ -1,3 +1,12 @@
-i .custom-styles .excalidraw {
-  --default-bg-color: #{$transparent} !important;
+.HintViewer {
+  display: none !important;
+}
+.ToolIcon__lock {
+  display: none !important;
+}
+.App-toolbar__divider {
+  display: none !important;
+}
+.App-toolbar__extra-tools-trigger {
+  display: none !important;
 }
