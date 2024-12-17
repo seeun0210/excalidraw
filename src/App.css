@@ -10,3 +10,9 @@
 .App-toolbar__extra-tools-trigger {
   display: none !important;
 }
+.ToolIcon {
+  margin-bottom: 0 !important;
+}
+.layer-ui__wrapper__top-right {
+  display: none !important;
+}
